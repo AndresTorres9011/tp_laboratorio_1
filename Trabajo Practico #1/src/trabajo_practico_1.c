@@ -40,13 +40,15 @@ int main(void) {
 	setbuf(stdout,NULL);
 	float numero1;
 	float numero2;
+	int flagNumero1=0;
+	int flagNumero2=0;
+	int flagOperaciones=0;
 	float resultadoSuma;
 	float resultadoResta;
 	float resultadoMultiplicacion;
 	float resultadoDivision;
 	float resultadoFactorialNumero1;
 	float resultadoFactorialNumero2;
-
 	int opcion;
 
 	while(opcion!=5)
@@ -54,58 +56,69 @@ int main(void) {
 		utn_printMenuCalculadora();
 		if(utn_getInt("\n   Ingrese opcion: ","\n   Error, Reingrese opcion valida (1-5): ",&opcion,4,1,6)==0 )
 		{
-		  if(opcion>0 && opcion<5)
-		  {
-			switch(opcion)
+		  	switch(opcion)
 			{
 				  case 1:
 					  if(utn_getFloat("   Ingresar 1er operando: ","\n   Error, Reingrese un numero: ",&numero1,4) == 0)
 					  {
 						  printf("   A=%.2f",numero1);
+						  flagNumero1=1;
 					  }
-					  else
-					  {
-						  printf("ERROR");
-					  }
-					  break;
+				  break;
 				  case 2:
 					  if(utn_getFloat("   Ingresar 2do operando: ","\n   Error, Reingrese un numero: ",&numero2,4) == 0)
 					  {
 						  printf("   B=%.2f",numero2);
-					  }
-					  else
-					  {
-						  printf("ERROR");
+						  flagNumero2=1;
 					  }
 				  break;
 				  case 3:
-					  utn_sumaFloat(numero1,numero2,&resultadoSuma);
-					  utn_restaFloat(numero1,numero2,&resultadoResta);
-					  utn_multiplicacionFloat(numero1,numero2,&resultadoMultiplicacion);
-					  utn_divisionFloat(numero1,numero2,&resultadoDivision);
-					  utn_getFactorial(numero1,&resultadoFactorialNumero1);
-					  utn_getFactorial(numero2,&resultadoFactorialNumero2);
+					  if(flagNumero1==1 && flagNumero2==1)
+					  {
+						  utn_sumaFloat(numero1,numero2,&resultadoSuma);
+						  utn_restaFloat(numero1,numero2,&resultadoResta);
+						  utn_multiplicacionFloat(numero1,numero2,&resultadoMultiplicacion);
+						  utn_divisionFloat(numero1,numero2,&resultadoDivision);
+						  utn_getFactorial(numero1,&resultadoFactorialNumero1);
+						  utn_getFactorial(numero2,&resultadoFactorialNumero2);
+						  flagOperaciones=1;
+					  }
+					  else
+					  {
+						 printf("\n   No ingreso valores para A o B.\n");
+						 system("   PAUSE");
+					  }
 				  break;
 				  case 4:
-					  printf("\n   El resultado de %.2f+%.2f es: %.2f",numero1,numero2,resultadoSuma);
-					  printf("\n   El resultado de %.2f-%.2f es: %.2f",numero1,numero2, resultadoResta);
-					  printf("\n   El resultado de %.2f*%.2f es: %.2f",numero1,numero2, resultadoMultiplicacion);
-					  if(utn_divisionFloat(numero1,numero2,&resultadoDivision)==0)
-						{
-							printf("\n   El resultado de %.2f/%.2f es: %.2f",numero1,numero2,resultadoDivision);
-						}
-						else
-						{
-							printf("\n   No se puede dividir por 0");
-						}
-					  printf("\n   El factorial de %.2f es %.2f y el factorial de %.2f es %.2f"
-							  ,numero1,resultadoFactorialNumero1,numero2,resultadoFactorialNumero2);
+					  if(flagNumero1==1 && flagNumero2==1 && flagOperaciones==1)
+					  {
+						  printf("\n   El resultado de %.2f+%.2f es: %.2f",numero1,numero2,resultadoSuma);
+						  printf("\n   El resultado de %.2f-%.2f es: %.2f",numero1,numero2, resultadoResta);
+						  printf("\n   El resultado de %.2f*%.2f es: %.2f",numero1,numero2, resultadoMultiplicacion);
+						  if(utn_divisionFloat(numero1,numero2,&resultadoDivision)==0)
+							{
+								printf("\n   El resultado de %.2f/%.2f es: %.2f",numero1,numero2,resultadoDivision);
+							}
+							else
+							{
+								printf("\n   No se puede dividir por 0");
+							}
+						  printf("\n   El factorial de %.2f es %.2f y el factorial de %.2f es %.2f"
+								  ,numero1,resultadoFactorialNumero1,numero2,resultadoFactorialNumero2);
+					  }
+					  else
+					  {
+						  printf("\n   No realizo ninguna operacion o no ingreso valores para A y B.\n");
+						  system("   PAUSE");
+					  }
 				  break;
 			}
-		 }
+	  }
+	  else
+	  {
+		break;
 	  }
 	}
-
 	return EXIT_SUCCESS;
 }
 

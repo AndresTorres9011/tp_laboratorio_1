@@ -30,6 +30,7 @@ int utn_getFloat(char *mensaje,char *mensajeError,float *pResultado,int reintent
 		printf("%s",mensajeError);
 		fflush(stdin);
 		respuestaScan = scanf("%f",&bufferFloat);
+
 	}
 	if(respuestaScan != 0)
 	{ //TODO OK
@@ -39,7 +40,9 @@ int utn_getFloat(char *mensaje,char *mensajeError,float *pResultado,int reintent
 
 	if(reintentos==0)
 	{
-		printf("Se quedo sin intentos");
+		printf("   Se quedo sin intentos\n");
+		retorno = -1;
+		system("PAUSE");
 	}
 	return retorno;
 }
@@ -190,8 +193,9 @@ int utn_getInt(char* mensaje, char* mensajeError,int* pResultado, int reintentos
 		}
 		if(reintentos==0)
 			{
-				printf("Se quedo sin intentos");
+				printf("   Se quedo sin intentos");
 				retorno=-1;
+				system("\nPAUSE");
 			}
 	}
 	return retorno;
