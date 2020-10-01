@@ -16,5 +16,10 @@ float utn_divisionFloat(float operador1, float operador2, float *pResultado);
 int utn_getInt(char* mensaje, char* mensajeError,int* pResultado, int reintentos, int minimo, int maximo);
 float utn_getFactorial(float operador,float *pResultado);
 void utn_printMenuCalculadora(void);
+int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int minimo,int maximo);
+int utn_calcularMaximoArray(int pArray[], int len,int *pResultado);
+int utn_calcularMinimoArray(int pArray[], int len,int *pResultado);
+int utn_calculoPromedioArray(int pArray[], int len, float *pResultado);
+
 
 #endif /* UTN_H_ */

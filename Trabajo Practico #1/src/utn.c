@@ -212,4 +212,82 @@ void utn_printMenuCalculadora(void)
 	printf( "\n   4. Informar resultados.");
 	printf( "\n   5. Salir.\n");
 }
+/**
+ * \brief utn_calcularMaximoArray: Calcula el numero maximo del array recibido como parametro.
+ * \param int pArray[]: Array a ser procesado.
+ * \param int len: cantidad de elementos a ser procesados.
+ * \param int* pResultado: puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \return (-1) Error / (0) Ok
+ */
+int utn_calcularMaximoArray(int pArray[], int len,int *pResultado)
+{
+	int retorno=-1;
+	int maximo;
+	if(pArray != NULL && len > 0 && pResultado != NULL)
+	{
+		for(int i=0; i < len; i++)
+		{
+			if(i==0 || pArray[i] > maximo)
+			{
+				maximo = pArray[i];
+			}
+		}
+		*pResultado = maximo;
+		retorno = 0;
+	}
+	return retorno;
+}
+
+/**
+ * \brief utn_calcularMinimoArray: Calcula el numero minimo del array recibido como parametro.
+ * \param int pArray[]: Array a ser procesado.
+ * \param int len: cantidad de elementos a ser procesador.
+ * \param int* pResultado: puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \return (-1) Error / (0) Ok
+ */
+int utn_calcularMinimoArray(int pArray[], int len,int *pResultado)
+{
+	int retorno=-1;
+	int minimo;
+	if(pArray != NULL && len > 0 && pResultado != NULL)
+	{
+		for(int i=0; i < len; i++)
+		{
+			if(i==0 || pArray[i] < minimo)
+			{
+				minimo = pArray[i];
+			}
+		}
+		*pResultado = minimo;
+		retorno = 0;
+	}
+	return retorno;
+}
+
+/**
+ * \brief utn_calculoPromedioArray: Calcula el promedio del array recibido como parametro.
+ * \param int pArray[]: Array a ser procesado.
+ * \param int len: cantidad de elementos a ser procesados.
+ * \param int* pResultado: puntero al espacio de memoria donde se dejara el valor obtenido.
+ * \return (-1) Error / (0) Ok
+ *
+ */
+int utn_calculoPromedioArray(int pArray[], int len, float *pResultado)
+{
+	int retorno=-1;
+	int acumulador=0;
+	float promedio;
+
+	if(pArray!=NULL && pResultado!=NULL && len>0)
+	{
+		for( int i=0; i < len ; i++)
+		{
+			acumulador= acumulador + pArray[i];
+		}
+		promedio=(float)acumulador/len;
+		*pResultado=promedio;
+		retorno=0;
+	}
+	return retorno;
+}
 
