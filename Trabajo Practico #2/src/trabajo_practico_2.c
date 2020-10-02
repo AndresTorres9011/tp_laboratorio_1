@@ -29,7 +29,7 @@
 #include "utn.h"
 #include "arrayEmployees.h"
 
-#define QTY_EMPLOYEES 5
+#define QTY_EMPLOYEES 1000
 #define CANTIDAD_REINTENTOS 3
 #define TRUE 1
 #define FALSE 0
@@ -37,49 +37,16 @@
 int main(void) {
 	setbuf(stdout,NULL);
 	int opcion;
-	int indice=0;
-    int order=1;
+	int flagAltaEmpleado=FALSE;
 	Employee arrayEmployees[QTY_EMPLOYEES];
 
-	    employees_init(arrayEmployees,QTY_EMPLOYEES);
-		arrayEmployees[0].id = 1;
-		strcpy(arrayEmployees[0].name, "Andres");
-		strcpy(arrayEmployees[0].lastName, "Torres");
-		arrayEmployees[0].salary = 6000;
-		arrayEmployees[0].sector = 1;
-		arrayEmployees[0].isEmpty = FALSE;
-		arrayEmployees[1].id = 2;
-		strcpy(arrayEmployees[1].name, "xiomara");
-		strcpy(arrayEmployees[1].lastName, "alarcon");
-		arrayEmployees[1].salary = 9000;
-		arrayEmployees[1].sector = 3;
-		arrayEmployees[1].isEmpty = FALSE;
-		arrayEmployees[2].id = 3;
-		strcpy(arrayEmployees[2].name, "viviana");
-		strcpy(arrayEmployees[2].lastName, "herrera");
-		arrayEmployees[2].salary = 2000;
-		arrayEmployees[2].sector = 5;
-		arrayEmployees[2].isEmpty = FALSE;
-		arrayEmployees[3].id = 4;
-		strcpy(arrayEmployees[3].name, "fernando");
-		strcpy(arrayEmployees[3].lastName, "Palacios");
-		arrayEmployees[3].salary = 5000;
-		arrayEmployees[3].sector = 8;
-		arrayEmployees[3].isEmpty = FALSE;
-		arrayEmployees[4].id = 5;
-		strcpy(arrayEmployees[4].name, "berta");
-		strcpy(arrayEmployees[4].lastName, "nadin");
-		arrayEmployees[4].salary = 4500;
-		arrayEmployees[4].sector = 2;
-		arrayEmployees[4].isEmpty = FALSE;
-
-	//if(employees_init(arrayEmployees,QTY_EMPLOYEES)==0)
-	//{
+	if(employees_init(arrayEmployees,QTY_EMPLOYEES)==0)
+	{
 		do
 		{
 			if(utn_getNumeroString("\n\n  1-Alta\n  2-Modificar\n  3-Baja "
-				             "\n  4-Informar\n  5-Salir\n\n  Ingrese opción:",
-							 "ERROR Reingrese opcion valida",&opcion,CANTIDAD_REINTENTOS,1,6)==0)
+				             "\n  4-Informe\n  5-Salir\n\n  Ingrese opción:",
+							 "ERROR Reingrese opcion valida",&opcion,CANTIDAD_REINTENTOS,1,5)==0)
 			{
 				switch(opcion)
 				{
@@ -87,6 +54,7 @@ int main(void) {
 						   if(employee_createNew(arrayEmployees,QTY_EMPLOYEES)==0)
 						   {
 							   printf("\n  ALTA DE EMPLEADO EXITOSA\n");
+							   flagAltaEmpleado=TRUE;
 						   }
 						   else
 						   {
@@ -94,34 +62,52 @@ int main(void) {
 						   }
 						break;
 					case 2:
-						if(employee_modifify(arrayEmployees,QTY_EMPLOYEES,indice)==0)
+						if(flagAltaEmpleado==TRUE)
 						{
-							printf("\n  MODIFICACION DE EMPLEADO EXITOSA\n");
+							if(employee_modifify(arrayEmployees,QTY_EMPLOYEES)==0)
+							{
+								printf("\n  MODIFICACION DE EMPLEADO EXITOSA\n");
+							}
+							else
+							{
+								printf("\n  MODIFICACION INCORECTA\n");
+							}
 						}
 						else
 						{
-							printf("\n  MODIFICACION INCORECTA\n");
+							printf("\n  NO DIO DE ALTA NINGUN EMPLEADO\n");
 						}
 					break;
 					case 3:
-					    if(employee_remove(arrayEmployees,QTY_EMPLOYEES,indice)==0)
-					    {
-							 printf("\n  BAJA DE EMPLEADO EXITOSA\n");
+						if(flagAltaEmpleado==TRUE)
+						{
+							if(employee_remove(arrayEmployees,QTY_EMPLOYEES)==0)
+							{
+								 printf("\n  BAJA DE EMPLEADO EXITOSA\n");
+							}
+							else
+							{
+								printf("\n  BAJA DE EMPLEADO INCORECTA\n");
+							}
 						}
 						else
 						{
-							printf("\n  BAJA DE EMPLEADO INCORECTA\n");
+							printf("\n  NO DIO DE ALTA NINGUN EMPLEADO\n");
 						}
 					break;
 					case 4:
-						employees_sortBySector(arrayEmployees,QTY_EMPLOYEES,order);
-					break;
-					case 5:
-						 employee_print(arrayEmployees,QTY_EMPLOYEES);
+						 if(flagAltaEmpleado==TRUE)
+						 {
+							 employees_reporting(arrayEmployees,QTY_EMPLOYEES);
+						 }
+						 else
+						 {
+							 printf("\n  NO DIO DE ALTA NINGUN EMPLEADO\n");
+						 }
 					break;
 				}
 			}
-		}while(opcion!=6);
-	//}
+		}while(opcion!=5);
+	}
 	return EXIT_SUCCESS;
 }
