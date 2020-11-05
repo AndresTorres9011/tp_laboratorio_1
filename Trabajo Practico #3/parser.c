@@ -5,12 +5,11 @@
 
 #define BUFFER_STRING 4096
 
-/** \brief
- *
- * \param
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/*
+ * \brief _EmployeeFromText: Parse the employee data from the file in text mode.
+ * \param FILE* pFile : Pointer to the file.
+ * LinkedList* pArrayListEmployee:  Pointer to LinkedList.
+ * \return int (-1) ERROR - If pointer to Employee* is NULL \ (0) OK
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
@@ -44,12 +43,11 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 	return retorno;
 }
 
-/** \brief
- *
- * \param
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/*
+ * \brief _EmployeeFromBinary: Parse the employee data from the file in binary mode.
+ * \param FILE* pFile : Pointer to the file.
+ * LinkedList* pArrayListEmployee:  Pointer to LinkedList.
+ * \return int (-1) ERROR - If pointer to Employee* is NULL \ (0) OK
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
@@ -73,13 +71,11 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief
- *
- * \param
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/*
+ * \brief _EmployeeToText:  Parse employee data to the text mode file.
+ * \param FILE* pFile : Pointer to the file.
+ * LinkedList* pArrayListEmployee:  Pointer to LinkedList.
+ * \return int (-1) ERROR - If pointer to Employee* is NULL \ (0) OK
  */
 int parser_EmployeeToText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
@@ -111,13 +107,11 @@ int parser_EmployeeToText(FILE* pFile , LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief
- *
- * \param
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/*
+ * \brief _EmployeeToBinary: Parse employee data to the binary mode file.
+ * \param FILE* pFile : Pointer to the file.
+ * LinkedList* pArrayListEmployee:  Pointer to LinkedList.
+ * \return int (-1) ERROR - If pointer to Employee* is NULL \ (0) OK
  */
 int parser_EmployeeToBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {

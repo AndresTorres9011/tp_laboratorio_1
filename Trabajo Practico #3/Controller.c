@@ -12,12 +12,65 @@
 static int findMaxId(LinkedList* pArrayListEmployee);
 static int generateNewId(LinkedList* pArrayListEmployee);
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief findMaxId: Search max id.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return id if OK/ (-1) Error
+ */
+static int findMaxId(LinkedList* pArrayListEmployee)
+{
+
+	Employee* pEmployee;
+	int len;
+	int i;
+	int max;
+	int id = -1;
+
+	if(pArrayListEmployee != NULL)
+	{
+		len = ll_len(pArrayListEmployee);
+		for(i=0;i<len;i++)
+		{
+			pEmployee = ll_get(pArrayListEmployee,i);
+			employee_getId(pEmployee,&id);
+			if (i == 0 || id > max)
+			{
+				max = id;
+			}
+		}
+		id = max;
+
+	}
+	return id;
+}
+
+/**
+ * \brief Generates a new id for a new client,
+ * \param void
+ * \return int Return value of the new id
+ */
+static int generateNewId(LinkedList* pArrayListEmployee)
+{
+    static int id = -1;
+    static int flag = 1;
+
+    if(pArrayListEmployee != NULL)
+    {
+		if(flag == 1)
+		{
+			id = findMaxId(pArrayListEmployee);
+			flag++;
+		}
+		id++;
+    }
+    return id;
+}
+
+/**
+ * \brief _loadFromText: Carga los datos de los empleados desde el archivo que recibe como parametro (modo texto).
+ * \param char* path: File address..
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return (-1) Error / (0) Ok
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
@@ -35,13 +88,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _loadFromBinary: Carga los datos de los empleados desde el archivo que recibe como parametro (modo binario).
+ * * \param char* path: File address.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return (-1) Error / (0) Ok
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
@@ -59,13 +110,10 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Alta de empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _addEmployee: Create a new profile asking data to the user.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return (-1) Error / (0) Ok
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
@@ -92,13 +140,11 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Buscar empleado por id
- *
- * \param pArrayListEmployee LinkedList*
- * \param id int id buscado
- * \return int indice encontrado o (-1) si el puntero a LikedList es NULL, id invalido o empleado no encontrado
- *
+/**
+ * \brief _findById: find the position in the array searched by Id.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \param int id: Id received to search position.
+ * \\return int indice encontrado if OK o (-1) si el puntero a LikedList es NULL, id invalido o empleado no encontrado
  */
 int controller_findById(LinkedList* pArrayListEmployee, int id)
 {
@@ -123,12 +169,10 @@ int controller_findById(LinkedList* pArrayListEmployee, int id)
 	}
 	return retorno;
 }
-/** \brief Modificar datos de empleado
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _editEmployee: Modify the data of an employee.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return Return(-1) Error / Return(0) Ok
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
@@ -211,14 +255,12 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Baja de empleado
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _removeEmployee: Remove data by Id.
+ * \param  LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return int Return (-1) if Error [Invalid length or NULL pointer o] - Return (0) if Ok
  */
+
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
@@ -253,23 +295,19 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Listar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _ListEmployee: Print all the uploaded data.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return (-1) Error / (0) Ok
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
-    int len;
+    int len= ll_len(pArrayListEmployee);
     int i;
 
     if(pArrayListEmployee != NULL)
     {
-    	len = ll_len(pArrayListEmployee);
     	printf("\n%10s %15s %15s %15s\n","ID","NOMBRE","HORAS TRABAJADAS","SUELDO\n");
     	for(i=0;i<len;i++)
     	{
@@ -278,7 +316,12 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     }
 	return retorno;
 }
-
+/**
+ * \brief _printOneEmployee: Print data by index.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \param int index: Is the data position in the array.
+ * \return (-1) Error / (0) Ok
+ */
 int controller_printOneEmployee(LinkedList* pArrayListEmployee, int index)
 {
 	int retorno = -1;
@@ -299,13 +342,10 @@ int controller_printOneEmployee(LinkedList* pArrayListEmployee, int index)
 	}
 	return retorno;
 }
-
-/** \brief Ordenar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _sortEmployee: Sort the array by different critery.
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \return (-1) Error / (0) Ok
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
@@ -325,12 +365,11 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 	//printf("NO ORDENADO");
 	return retorno;
 }
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/**
+ * \brief _saveAsText: Guarda los datos de los empleados en el archivo que recibe como parametro (modo texto).
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \param char* path: File address.
+ * \return (-1) Error / (0) Ok
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
@@ -348,13 +387,11 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 	}
 	return retorno;
 }
-
-/** \brief Guarda los datos de los empleados en el archivo que recibe como parametro (modo binario).
- *
- * \param path char* nombre del archivo
- * \param pArrayListEmployee LinkedList* puntero al array
- * \return int
- *
+/**
+ * \brief _saveAsBinary: Guarda los datos de los empleados en el archivo que recibe como parametro (modo binario).
+ * \param LinkedList* pArrayListEmployee: Pointer to the array.
+ * \param char* path: File address.
+ * \return (-1) Error / (0) Ok
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
@@ -371,56 +408,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 		}
 	}
 	return retorno;
-}
-
-/**
- * \brief
- * \param
- * \return int Return
- */
-static int findMaxId(LinkedList* pArrayListEmployee)
-{
-	Employee* pEmployee;
-	int len;
-	int i;
-	int max;
-	int id = -1;
-
-	if(pArrayListEmployee != NULL)
-	{
-		len = ll_len(pArrayListEmployee);
-		for(i=0;i<len;i++)
-		{
-			pEmployee = ll_get(pArrayListEmployee,i);
-			employee_getId(pEmployee,&id);
-			if (i == 0 || id > max)
-			{
-				max = id;
-			}
-		}
-		id = max;
-	}
-	return id;
-}
-
-/**
- * \brief Generates a new id for a new client,
- * \param void
- * \return int Return value of the new id
- */
-static int generateNewId(LinkedList* pArrayListEmployee)
-{
-    static int id = -1;
-    static int flag = 1;
-
-    if(pArrayListEmployee != NULL)
-    {
-		if(flag == 1)
-		{
-			id = findMaxId(pArrayListEmployee);
-			flag++;
-		}
-		id++;
-    }
-    return id;
 }

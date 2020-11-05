@@ -30,7 +30,6 @@ int main()
 
 	do
 	{
-
 		if(!utn_getNumber(&option,"\n\n1-Cargar archivo de empleados (modo texto).""\n2-Cargar archivo de empleados (modo binario)."
 						  "\n3-Alta de empleado\n4-Modificar datos de empleado\n5-Baja de empleado\n6-Listar empleados\n7-Ordenar empleados"
 							"\n8-Guardar datos en archivo (modo texto)\n9-Guardar datos en archivo (modo binario)."
@@ -174,6 +173,6 @@ int main()
 			}
 		}
 	} while (option != 10);
-	printf("PROGRAMA TERMINADO");
+	printf("\n\nPROGRAMA TERMINADO\n\n");
 	return 0;
 }
